@@ -95,7 +95,7 @@ perbaikan:
 
 **Jawab:**
 
-![Screenshot Aplikasi](image/5.png)
+![Screenshot Aplikasi](image/6.png)
 
 
 
