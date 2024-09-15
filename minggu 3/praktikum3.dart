@@ -1,12 +1,13 @@
 void main() {
-  for (int index = 10; index < 27; index++) {
+  for (int index = 10; index < 30; index++) {
     if (index == 21) {
-    
-      break;
-    } else if (index > 1 || index < 7) {
-      print(index);
-      continue;
+      break; // Berhenti jika index == 21
+    } else if (index > 1 && index < 7) {
+      continue; // Lewati iterasi untuk nilai index antara 2 hingga 6
     }
-    
+    print(index); // Cetak nilai index yang tidak dilompati
   }
 }
+
+
+

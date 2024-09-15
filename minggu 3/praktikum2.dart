@@ -1,7 +1,5 @@
 void main() {
-  int counter = 1;
-  while (counter < 33) {
-    print(counter);
-    counter++;
+  for (int index = 10; index < 27; index++) { 
+    print(index); 
   }
 }
