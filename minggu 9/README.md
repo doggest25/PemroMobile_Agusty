@@ -142,7 +142,7 @@ Jawab:done
 Jawab:
 ![Screenshot Aplikasi](image/1.6.gif)
 
-kode lengkap: 
+kode lengkap: https://github.com/doggest25/kamera_filter_flutter
 
 3. Jelaskan maksud void async pada praktikum 1?
 
