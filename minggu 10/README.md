@@ -192,6 +192,8 @@ completenessMessage pada akhir widget Column. Perhatikan kode berikut ini.
 
 ![Screenshot Aplikasi](image/2.10.png)
 
+Link kode program: https://github.com/doggest25/master_plan
+
 # Tugas Praktikum 2: InheritedWidget
 
 1. Selesaikan langkah-langkah praktikum tersebut, lalu dokumentasikan berupa GIF hasil akhir praktikum beserta penjelasannya di file README.md! Jika Anda menemukan ada yang error atau tidak berjalan dengan baik, silakan diperbaiki sesuai dengan tujuan aplikasi tersebut dibuat.
@@ -317,6 +319,8 @@ Tambahkan widget seperti kode berikut.
 ![Screenshot Aplikasi](image/3.14.png)
 ![Screenshot Aplikasi](image/3.14.1.png)
 
+Link kode program: https://github.com/doggest25/master_plan
+
 # Tugas Praktikum 3: State di Multiple Screens
 
 1. Selesaikan langkah-langkah praktikum tersebut, lalu dokumentasikan berupa GIF hasil akhir praktikum beserta penjelasannya di file README.md! Jika Anda menemukan ada yang error atau tidak berjalan dengan baik, silakan diperbaiki sesuai dengan tujuan aplikasi tersebut dibuat.
@@ -326,6 +330,7 @@ Jawab:![Screenshot Aplikasi](image/3.15.gif)
 2. Berdasarkan Praktikum 3 yang telah Anda lakukan, jelaskan maksud dari gambar diagram berikut ini!
 
 Jawab:
+jadi terdapat plan creator dan plan screen,plan creator digunakan untuk menambahkan plan baru, sedangkan plan screen digunakan untuk menampilkan plan yang telah ditambahkan oleh user.
 
 3. Lakukan capture hasil dari Langkah 14 berupa GIF, kemudian jelaskan apa yang telah Anda buat!
 
@@ -335,4 +340,4 @@ Jawab: pada langkah 14 kita membuat suatu fungsi untuk menampilkan daftar rencan
 
 4. Kumpulkan laporan praktikum Anda berupa link commit atau repository GitHub ke spreadsheet yang telah disediakan!
 
-Jawab:
+Jawab:done
