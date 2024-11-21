@@ -362,42 +362,139 @@ Mengubah addRandomNumber:
 ```
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 7".
 
+link kode program: https://github.com/doggest25/steam_yoga
+
 # Praktikum 3: Injeksi data ke streams
 
 Langkah 1: Buka main.dart
-
+```dart
+ late StreamTransformer transformer;
+```
 Langkah 2: Tambahkan kode ini di initState
+```dart
+transformer = StreamTransformer<int, int>.fromHandlers(
+    handleData: (value, sink) {
+      sink.add(value * 10);
+    },
+    handleError: (error, trace, sink) {
+      sink.add(-1);
+    },
+    handleDone: (sink) => sink.close(),
+  );
+```
 
 Langkah 3: Tetap di initState
+```dart
+stream.transform(transformer).listen((event) {
+    setState(() {
+      lastNumber = event;
+    });
+  }).onError((error) {
+    setState(() {
+      lastNumber = -1;
+    });
+  });
 
+```
 Langkah 4: Run
+
+![Screenshot Aplikasi](image/1.4.png)
 
 Soal 8
 - Jelaskan maksud kode langkah 1-3 tersebut!
+    - stream.transform(transformer): Menerapkan StreamTransformer yang telah didefinisikan untuk memodifikasi data dalam stream sebelum sampai ke pendengar (listener).
+    - listen((event) { ... }): Mendaftarkan pendengar ke stream untuk memproses setiap event (data yang dimodifikasi oleh transformer).
+    - setState: Mengubah state lastNumber di widget dengan nilai terbaru dari stream (event).
+    - onError((error) { ... }): Menangani error dari stream. Dalam kasus error, lastNumber diatur ke -1.
+
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Screenshot Aplikasi](image/1.3.gif)
+
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 8".
+
+Link kode program:https://github.com/doggest25/steam_yoga
 
 # Praktikum 4: Subscribe ke stream events
 
 Langkah 1: Tambah variabel
+```dart
+late StreamSubscription subscription;
+```
 
 Langkah 2: Edit initState()
+```dart
+@override
+  void initState() {
+    numberStream = NumberStream();
+    numberStreamController = numberStream.controller;
+    Stream stream = numberStreamController.stream;
+    subscription = stream.listen((event) {
+      setState(() {
+        lastNumber = event;
+      });
+    });
+    super.initState();
+  }
+```
 
 Langkah 3: Tetap di initState()
-
+```dart
+subscription.onError((error) {
+      setState(() {
+        lastNumber = -1;
+      });
+    });
+```
 Langkah 4: Tambah properti onDone()
-
+```dart
+subscription.onDone(() {
+      print('OnDOne was called');
+    });
+```
 Langkah 5: Tambah method baru
+```dart
+void stopStream() {
+    numberStreamController.close();
+  }
+```
 
 Langkah 6: Pindah ke method dispose()
-
+```dart
+subscription.cancel();
+```
 Langkah 7: Pindah ke method build()
+```dart
+ElevatedButton(
+              onPressed: () => stopStream(),
+              child: const Text('Stop Subscription'),
+            )
+```
 
 Langkah 8: Edit method addRandomNumber()
+```dart
+void addRandomNumber() {
+    Random random = Random();
+    int myNum = random.nextInt(10);
+    if (!numberStreamController.isClosed) {
+      numberStream.addNumberToSink(myNum);
+    } else {
+      setState(() {
+        lastNumber = -1;
+      });
+    }
+  }
+```
 
 Langkah 9: Run
 
+![Screenshot Aplikasi](image/1.5.png)
+
+
 Langkah 10: Tekan button ‘Stop Subscription'
+
+![Screenshot Aplikasi](image/1.6.png)
+
 
 Soal 9
 - Jelaskan maksud kode langkah 2, 6 dan 8 tersebut!
