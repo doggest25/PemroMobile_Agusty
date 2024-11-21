@@ -55,11 +55,32 @@ Soal 1
 - Lakukan commit hasil jawaban Soal 1 dengan pesan "W13: Jawaban Soal 1"
 
 Langkah 3: Buat file baru stream.dart
+```dart
+import 'package:flutter/material.dart';
+
+class ColorStream {
+
+  
+}
+```
 
 Langkah 4: Tambah variabel colors
+```dart
+  final List<Color> colors = 
+    Colors.blueGrey,
+    Colors.amber,
+    Colors.deepPurple,
+    Colors.lightBlue,
+    Colors.teal,
+  
+```
 
 Soal 2
 - Tambahkan 5 warna lainnya sesuai keinginan Anda pada variabel colors tersebut.
+
+![Screenshot Aplikasi](image/1.2.png)
+
+
 - Lakukan commit hasil jawaban Soal 2 dengan pesan "W13: Jawaban Soal 2"
 
 Langkah 5: Tambah method getColors()
