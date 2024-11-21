@@ -84,13 +84,32 @@ Soal 2
 - Lakukan commit hasil jawaban Soal 2 dengan pesan "W13: Jawaban Soal 2"
 
 Langkah 5: Tambah method getColors()
-
+```dart
+Stream<Color> getColors() async* {
+    
+  }
+```
 Langkah 6: Tambah perintah yield*
+```dart
+yield* Stream.periodic(
+  const Duration(seconds: 1), (int t) {
+    int index = t % colors.length;
+    return colors[index];
+});
+```
 
 Soal 3
 
 - Jelaskan fungsi keyword yield* pada kode tersebut!
+
+`Fungsi yield*:`
+`Menggabungkan atau meneruskan elemen/stream lain ke dalam stream saat ini.Mempermudah menyalurkan elemen dari stream lain tanpa harus mengiterasi dan menggunakan yield satu per satu.`
+
 - Apa maksud isi perintah kode tersebut?
+
+`yield*:`
+    `Digunakan untuk "meneruskan" semua elemen dari stream yang dihasilkan oleh Stream.periodic langsung ke stream utama (getColors).Dengan kata lain, semua data yang dihasilkan oleh Stream.periodic akan dikirimkan ke stream output dari getColors.`
+
 - Lakukan commit hasil jawaban Soal 3 dengan pesan "W13: Jawaban Soal 3"
 
 Langkah 7: Buka main.dart
