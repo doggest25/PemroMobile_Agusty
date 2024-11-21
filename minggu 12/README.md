@@ -113,12 +113,36 @@ Soal 3
 - Lakukan commit hasil jawaban Soal 3 dengan pesan "W13: Jawaban Soal 3"
 
 Langkah 7: Buka main.dart
+```dart
+import 'stream.dart';
+```
 
 Langkah 8: Tambah variabel
+```dart
+ Color bgColor = Colors.blueGrey;
+  late ColorStream colorStream;
+```
 
 Langkah 9: Tambah method changeColor()
+```dart
+void changeColor() async {
+    await for (var eventColor in ColorStream.getColors()) {
+      setState(() {
+        bgColor = eventColor;
+      });
+    }
+  }
+```
 
 Langkah 10: Lakukan override initState()
+```dart
+@override
+  void initState() {
+    super.initState();
+    colorStream = ColorStream();
+    changeColor();
+  }
+```
 
 Langkah 11: Ubah isi Scaffold()
 
@@ -126,6 +150,9 @@ Langkah 12: Run
 
 Soal 4
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Screenshot Aplikasi](image/1.1.gif)
+
 - Lakukan commit hasil jawaban Soal 4 dengan pesan "W13: Jawaban Soal 4"
 
 Langkah 13: Ganti isi method changeColor()
