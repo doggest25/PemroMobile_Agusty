@@ -156,9 +156,26 @@ Soal 4
 - Lakukan commit hasil jawaban Soal 4 dengan pesan "W13: Jawaban Soal 4"
 
 Langkah 13: Ganti isi method changeColor()
-
+```dart
+colorStream.getColors().listen((eventColor) {
+      setState(() {
+        bgColor = eventColor;
+      });
+    });
+```
 Soal 5
 - Jelaskan perbedaan menggunakan listen dan await for (langkah 9) !
+
+## Perbedaan `await for` dan `listen`
+
+| **Aspek**                  | **`await for`**                              | **`listen`**                              |
+|----------------------------|----------------------------------------------|-------------------------------------------|
+| **Sifat Konsumsi**         | Sinkron dalam konteks fungsi asinkron        | Asinkron sepenuhnya                       |
+| **Kesesuaian untuk Stream**| Stream finite                                | Stream infinite                           |
+| **Blokir Eksekusi**        | Ya, menunggu hingga semua elemen selesai     | Tidak, proses lain dapat tetap berjalan   |
+| **Penggunaan di Fungsi**   | Memerlukan `async`                           | Tidak memerlukan `async`                  |
+| **Penghentian**            | Berhenti setelah semua elemen diproses       | Harus secara eksplisit menghentikan jika diperlukan |
+
 - Lakukan commit hasil jawaban Soal 5 dengan pesan "W13: Jawaban Soal 5"
 
 # Praktikum 2: Stream controllers dan sinks
