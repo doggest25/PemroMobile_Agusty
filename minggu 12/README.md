@@ -310,14 +310,56 @@ Kedua kode ini bekerja sama untuk membuat sistem aliran data dinamis:
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 6".
 
 Langkah 13: Buka stream.dart
+```dart
+ addError() {
+    controller.sink.addError('error');
+  }
+```
 
 Langkah 14: Buka main.dart
-
+```dart
+stream.listen((event) {
+      setState(() {
+        lastNumber = event;
+      });
+    }).onError((error) {
+      setState(() {
+        lastNumber = -1;
+      });
+    });
+```
 Langkah 15: Edit method addRandomNumber()
+```dart
+ void addRandomNumber() {
+    Random random = Random();
+    //int myNum = random.nextInt(10);
+    //numberStream.addNumberToSink(myNum);
+    numberStream.addError();
+  }
+```
 
 Soal 7
 - Jelaskan maksud kode langkah 13 sampai 15 tersebut!
+
+addError di Stream:
+
+    Digunakan untuk mensimulasikan error dengan mengirimkan event error ke stream.
+onError pada Listener:
+
+    Listener sekarang dapat menangani error yang dipancarkan oleh stream. Jika terjadi error, nilai variabel lastNumber akan diatur menjadi -1, menunjukkan kondisi error.
+Mengubah addRandomNumber:
+
+    Mengalihkan fungsi untuk memicu error menggunakan addError, sehingga membantu dalam pengujian atau demonstrasi bagaimana aplikasi menangani error.
+
 - Kembalikan kode seperti semula pada Langkah 15, comment addError() agar Anda dapat melanjutkan ke praktikum 3 berikutnya.
+```dart
+ void addRandomNumber() {
+    Random random = Random();
+    int myNum = random.nextInt(10);
+    numberStream.addNumberToSink(myNum);
+    //numberStream.addError();
+  }
+```
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 7".
 
 # Praktikum 3: Injeksi data ke streams
