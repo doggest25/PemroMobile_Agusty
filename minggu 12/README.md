@@ -511,80 +511,350 @@ Soal 9
 
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 9".
 
+
+Link kode program:https://github.com/doggest25/steam_yoga
+
 # Praktikum 5: Multiple stream subscriptions
 
 Langkah 1: Buka file main.dart
+```dart
+late StreamSubscription subscription2;
+  String values = '';
+```
 
 Langkah 2: Edit initState()
+```dart
+// Inisialisasi subscription
+    subscription = stream.listen((event) {
+      setState(() {
+        values += '$event - ';
+      });
+    });
 
+    subscription2 = stream.listen((event) {
+      setState(() {
+        values += '$event - ';
+      });
+    });
+```
 Langkah 3: Run
+
+![Screenshot Aplikasi](image/1.7.png)
 
 Soal 10
 - Jelaskan mengapa error itu bisa terjadi ?
+    Error Bad state: Stream has already been listened to. terjadi karena Anda mencoba mendengarkan (listen) pada stream yang sama lebih dari satu kali, tetapi stream default pada Dart hanya dapat memiliki satu listener aktif pada satu waktu.
 
 Langkah 4: Set broadcast stream
+```dart
+ numberStream = NumberStream();
+    numberStreamController = numberStream.controller;
+    Stream stream = numberStreamController.stream.asBroadcastStream();
 
+```
 Langkah 5: Edit method build()
-
+```dart
+ child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(values),
+```
 Langkah 6: Run
 
+![Screenshot Aplikasi](image/1.8.png)
+
 Soal 11
--- Jelaskan mengapa hal itu bisa terjadi ?
+- Jelaskan mengapa hal itu bisa terjadi ?
+
+    Ketika widget Text(values) menampilkan banyak nilai, hal ini disebabkan oleh mekanisme bagaimana values diperbarui di dalam kedua listener dari Stream yang sama
+
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Screenshot Aplikasi](image/1.5.gif)
+
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 10,11".
+
+
+Link kode program:https://github.com/doggest25/steam_yoga
 
 # Praktikum 6: StreamBuilder
 
 Langkah 1: Buat Project Baru
 
+Buatlah sebuah project flutter baru dengan nama streambuilder_nama (beri nama panggilan Anda) di folder week-13/src/ repository GitHub Anda.
+
 Langkah 2: Buat file baru stream.dart
+```dart
+class NumberStream {
 
+}
+```
 Langkah 3: Tetap di file stream.dart
+```dart
+import 'dart:math';
 
+class NumberStream {
+  Stream<int> getNumbers() async* {
+    yield* Stream.periodic(Duration(seconds: 1), (int t) {
+      Random ranndom = Random();
+      int myNum = ranndom.nextInt(10);
+      return myNum;
+    });
+  }
+}
+
+```
 Langkah 4: Edit main.dart
+```dart
+import 'package:flutter/material.dart';
+import 'stream.dart';
+import 'dart:async';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Stream',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+      ),
+      home: const StreamHomePage(),
+    );
+  }
+}
+
+class StreamHomePage extends StatefulWidget {
+  const StreamHomePage ({super.key});
+
+  @override
+  State<StreamHomePage> createState() => _StreamHomePage();
+}
+
+class _StreamHomePage extends State<StreamHomePage> {
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Stream'),  
+      ),
+      body: Container(
+
+      ),
+    );
+  }
+}
+```
 
 Langkah 5: Tambah variabel
+```dart
+late Stream<int> numberStream;
+```
 
 Langkah 6: Edit initState()
+```dart
+@override
+  void initState() {
+    numberStream = NumberStream().getNumbers();
+    super.initState();
+  }
+```
 
 Langkah 7: Edit method build()
-
+```dart
+body: StreamBuilder(
+        stream: numberStream,
+        initialData: 0,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print('Error!');
+          }
+          if (snapshot.hasData) {
+            return Center(
+                child: Text(
+              snapshot.data.toString(),
+              style: const TextStyle(fontSize: 96),
+            ));
+          } else {
+            return const SizedBox.shrink();
+          }
+        },
+      ),
+```
 Langkah 8: Run
 
 Soal 12
 - Jelaskan maksud kode pada langkah 3 dan 7 !
+
+    Langkah 3 membuat stream angka acak dengan interval 1 detik.
+
+    Langkah 7 menampilkan angka terbaru dari stream menggunakan widget StreamBuilder, yang memungkinkan pembaruan UI secara otomatis tanpa perlu logika manual tambahan.
+
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Screenshot Aplikasi](image/1.6.gif)
+
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 12".
+
+
+Link kode program:https://github.com/doggest25/streambuilder_yoga
 
 # Praktikum 7: BLoC Pattern
 
 Langkah 1: Buat Project baru
 
+Buatlah sebuah project flutter baru dengan nama bloc_random_nama (beri nama panggilan Anda) di folder week-13/src/ repository GitHub Anda. Lalu buat file baru di folder lib dengan nama random_bloc.dart
+
 Langkah 2: Isi kode random_bloc.dart
+```dart
+import 'dart:async';
+import 'dart:math';
+```
 
 Langkah 3: Buat class RandomNumberBloc()
+```dart
+class RandomNumberBloc {}
+```
 
 Langkah 4: Buat variabel StreamController
+```dart
+final _generateRandomController = StreamController<void>();
+    final _randomNumberController = StreamController<int>();
+    
+    Sink<void> get generateRandom => _generateRandomController.sink;
+
+    Stream<int> get randomNumber => _randomNumberController.stream;
+```
 
 Langkah 5: Buat constructor
+```dart
+RandomNumberBloc() {
+      _generateRandomController.stream.listen((_) {
+        final random = Random().nextInt(10);
+        _randomNumberController.sink.add(random);
+      });
+    }
+```
 
 Langkah 6: Buat method dispose()
+```dart
+void dispose() {
+      _generateRandomController.close();
+      _randomNumberController.close();
+    }
+void dispose() {
+      _generateRandomController.close();
+      _randomNumberController.close();
+    }
 
 Langkah 7: Edit main.dart
+```dart
+import 'package:flutter/material.dart';
+import 'random_screen.dart';
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primaryColor: Colors.blue,
+      ),
+      home: const RandomScreen(),
+    );
+  }
+}
+```
 
 Langkah 8: Buat file baru random_screen.dart
 
+Di dalam folder lib project Anda, buatlah file baru ini.
+
 Langkah 9: Lakukan impor material dan random_bloc.dart
+```dart
+import 'package:flutter/material.dart';
+import 'random_bloc.dart';
+```
 
 Langkah 10: Buat StatefulWidget RandomScreen
+```dart
+class RandomScreen extends StatefulWidget {
+  const RandomScreen({super.key});
 
+  @override
+  State<RandomScreen> createState() => _RandomScreenState();
+}
+```
 Langkah 11: Buat variabel
+```dart
+final _bloc = RandomNumberBloc();
+```
 
 Langkah 12: Buat method dispose()
+```dart
+@override
+  void dispose() {
+    _bloc.dispose();
+    super.dispose();
+  }
+```
 
 Langkah 13: Edit method build()
+```dart
+appBar: AppBar(title: const Text('Random Number')),
+      body: Center(
+        child: StreamBuilder<int>(
+          stream: _bloc.randomNumber,
+          initialData: 0,
+          builder: (context, snapshot) {
+            return Text(
+              'Random Number: ${snapshot.data}',
+              style: const TextStyle(fontSize: 24),
+            );
+          },
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _bloc.generateRandom.add(null),
+        child: const Icon(Icons.refresh),
+      ),
+    );
+```
+![Screenshot Aplikasi](image/1.9.png)
+
 
 Soal 13
 -  Jelaskan maksud praktikum ini ! Dimanakah letak konsep pola BLoC-nya ?
+
+Pola BLoC diterapkan di bagian berikut:
+
+1. Logika bisnis terpisah dalam RandomNumberBloc:
+    - Input diterima melalui sink (generateRandom).
+    - Output dikirim melalui stream (randomNumber).
+2. Integrasi logika bisnis dan UI di random_screen.dart:
+    - Input dipicu oleh FAB yang mengirimkan perintah ke sink.
+    - StreamBuilder mendengarkan perubahan data dari stream dan memperbarui UI secara otomatis.
+
+Dengan menggunakan pola BLoC, logika bisnis menjadi reusable dan terisolasi dari implementasi UI, sehingga memudahkan pemeliharaan dan pengujian aplikasi.
+
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Screenshot Aplikasi](image/1.8.gif)
+
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 13".
+
+Link kode program:https://github.com/doggest25/bloc_random_yoga
