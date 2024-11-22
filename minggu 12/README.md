@@ -498,7 +498,17 @@ Langkah 10: Tekan button ‘Stop Subscription'
 
 Soal 9
 - Jelaskan maksud kode langkah 2, 6 dan 8 tersebut!
+
+    Langkah 2: Menyiapkan stream, controller, dan subscription untuk mendengarkan data dari stream.
+
+    Langkah 6: Membatalkan subscription saat widget dihancurkan untuk mencegah kebocoran memori.
+
+    Langkah 8: Menambahkan angka acak ke stream jika controller belum ditutup; jika sudah ditutup, memperbarui UI dengan nilai khusus (-1).
+
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README.
+
+![Screenshot Aplikasi](image/1.4.gif)
+
 - Lalu lakukan commit dengan pesan "W13: Jawaban Soal 9".
 
 # Praktikum 5: Multiple stream subscriptions
